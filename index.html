@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdMob Rewarded Ad Demo</title>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-admob.js"></script>
+</head>
+<body>
+    <div id="admob-rewarded-ad"></div>
+    <button id="admob-rewarded-ad-btn">Watch Ad for Reward</button>
+
+    <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPzDnTaxqmeExMTznrgZzcra9xjmYPxqU",
+            authDomain: "data-4-zp1ki4.firebaseapp.com",
+            projectId: "data-4-zp1ki4",
+            storageBucket: "data-4-zp1ki4.appspot.com",
+            messagingSenderId: "133541181688",
+            appId: "1:133541181688:web:21677065187f661524a30d"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // Initialize AdMob
+        const admob = firebase.admob();
+
+        // Load Rewarded Ad
+        const rewardedAd = admob().rewardedAd('ca-app-pub-5790005755503858/9666403076');
+        rewardedAd.load();
+
+        // Show Rewarded Ad
+        function showRewardedAd() {
+            if (rewardedAd.isLoaded()) {
+                rewardedAd.show();
+            } else {
+                rewardedAd.load();
+                rewardedAd.on('loaded', () => rewardedAd.show());
+            }
+        }
+
+        // Add event listener to show the ad
+        document.getElementById('admob-rewarded-ad-btn').addEventListener('click', showRewardedAd);
+    </script>
+</body>
+</html>
